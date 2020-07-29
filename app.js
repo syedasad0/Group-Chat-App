@@ -26,15 +26,15 @@ app.get('/login', function (req, res) {
 app.post('/login', function (req, res) {
     console.log(req.body);
     const schema = Joi.object().keys({
-        id: Joi.string().trim().email().required(),
-        password: Joi.string().min(5).max(12).required()
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().min(5).max(30).required()
     });
     Joi.validate(req.body, schema, (err, x) => {
         console.log(err);
         if (err) {
             return res.send("Validation Error");
         }
-        let sqlQuery = 'select * from user_cred where email = \'' + req.body.id + '\'';
+        let sqlQuery = `select * from tb_user_login_info where email = '${req.body.email}'`
         console.log(sqlQuery);
         db.query(sqlQuery, (err, rows) => {
             if (err) {
@@ -63,8 +63,8 @@ app.post('/signup', function (req, res) {
     const schema2 = Joi.object().keys({
         first_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
         last_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().min(3).max(30).required()
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().min(5).max(30).required()
     });
     Joi.validate(req.body, schema2, (err, x) => {
         console.log('logging error------', err);
@@ -90,7 +90,7 @@ const io = require("socket.io")(server);
 //Listen on every connection
 io.on('connection', (socket) => {
     console.log('New user connected')
-    
+
     //let f_name = 'select first_name from user_cred where email = \'' + req.body.id + '\'';
 
     //default username

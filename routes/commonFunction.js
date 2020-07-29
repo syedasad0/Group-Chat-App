@@ -1,7 +1,7 @@
 var apiReferenceModule = "commonFunction";
 
-var Promise            = require('bluebird');
-var Joi                = require('joi');
+var Promise = require('bluebird');
+var Joi = require('joi');
 
 exports.checkBlank = function (arr, apiReference) {
     if (!Array.isArray(arr)) {
@@ -16,7 +16,7 @@ exports.checkBlank = function (arr, apiReference) {
         }
         arr[i] = arr[i].toString().trim();
         if (arr[i] === '' || arr[i] === "" || arr[i] === undefined) {
-            console.log(apiReference, {EVENT: "Check blank failed", MAN_VALUES: arr});
+            console.log(apiReference, { EVENT: "Check blank failed", MAN_VALUES: arr });
             return 1;
         }
     }
