@@ -1,4 +1,4 @@
-$(function(){
+$(function () {
     var socket = io.connect('http://localhost:3001')
 
     //buttons and inputs

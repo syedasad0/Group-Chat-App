@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const db = require('./mysqlservices');
 const path = require('path');
+const commonFunction = require('./routes/commonFunction');
 
 //View Engine Setup
 app.engine('handlebars', exphbs());
@@ -25,15 +26,15 @@ app.get('/login', function (req, res) {
 app.post('/login', function (req, res) {
     console.log(req.body);
     const schema = Joi.object().keys({
-        id: Joi.string().trim().email().required(),
-        password: Joi.string().min(5).max(12).required()
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().min(5).max(30).required()
     });
     Joi.validate(req.body, schema, (err, x) => {
         console.log(err);
         if (err) {
             return res.send("Validation Error");
         }
-        let sqlQuery = 'select * from user_cred where email = \'' + req.body.id + '\'';
+        let sqlQuery = `select * from tb_user_login_info where email = '${req.body.email}'`
         console.log(sqlQuery);
         db.query(sqlQuery, (err, rows) => {
             if (err) {
@@ -60,21 +61,17 @@ app.get('/signup', function (req, res) {
 app.post('/signup', function (req, res) {
     console.log("Received request data - ", req.body);
     const schema2 = Joi.object().keys({
-        firstName: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
-        lastName: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
-        id: Joi.string().trim().email().required(),
-        password: Joi.string().min(5).max(12).required()
+        first_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
+        last_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
+        email: Joi.string().trim().email().required(),
+        password: Joi.string().min(5).max(30).required()
     });
     Joi.validate(req.body, schema2, (err, x) => {
-        console.log(err);
+        console.log('logging error------', err);
         if (err) {
             return res.send("Validation Error");
         }
-        // (first_name, last_name, email, password)
-        let sqlQuery = 'INSERT INTO user_cred  VALUES(\'' + req.body.firstName.toString() + '\' , \'' + req.body.lastName.toString() + '\', \'' + req.body.id.toString() + '\', \'' + req.body.password.toString() + '\' )';
-
-        console.log(sqlQuery);
-
+        let sqlQuery = `INSERT INTO tb_user_login_info (first_name, last_name, email, password) VALUES ('${req.body.first_name}', '${req.body.last_name}', '${req.body.email}', '${req.body.password}')`
         db.query(sqlQuery, (err, rows) => {
             if (err) {
                 console.log(err);
@@ -93,7 +90,7 @@ const io = require("socket.io")(server);
 //Listen on every connection
 io.on('connection', (socket) => {
     console.log('New user connected')
-    
+
     //let f_name = 'select first_name from user_cred where email = \'' + req.body.id + '\'';
 
     //default username
