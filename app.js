@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const Joi = require('joi');
+const Joi = require('@hapi/joi');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
