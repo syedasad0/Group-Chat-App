@@ -4,10 +4,12 @@
   "description": "This is one to one and group chat model And single Api to get the last message of every chat, username/group name, unread message count.",
   "main": "app.js",
   "dependencies": {
+    "@hapi/joi": "^17.1.1",
     "all": "^0.0.0",
+    "bluebird": "^3.7.2",
     "express": "^4.17.1",
     "express-handlebars": "^5.1.0",
-    "joi": "^17.1.1",
+    "joi": "^14.3.1",
     "mysql": "^2.18.1",
     "socket.io": "^2.3.0"
   },

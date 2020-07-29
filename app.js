@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
-const Joi = require('@hapi/joi');
+const Joi = require('joi');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const db = require('./mysqlservices');
 const path = require('path');
+const commonFunction = require('./routes/commonFunction');
 
 //View Engine Setup
 app.engine('handlebars', exphbs());
@@ -62,19 +63,15 @@ app.post('/signup', function (req, res) {
     const schema2 = Joi.object().keys({
         first_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
         last_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
-        id: Joi.string().email().required(),
+        email: Joi.string().email().required(),
         password: Joi.string().min(3).max(30).required()
     });
     Joi.validate(req.body, schema2, (err, x) => {
-        console.log(err);
+        console.log('logging error------', err);
         if (err) {
             return res.send("Validation Error");
         }
-        // (first_name, last_name, email, password)
-        let sqlQuery = 'INSERT INTO user_cred  VALUES(\'' + req.body.firstName.toString() + '\' , \'' + req.body.lastName.toString() + '\', \'' + req.body.id.toString() + '\', \'' + req.body.password.toString() + '\' )';
-
-        console.log(sqlQuery);
-
+        let sqlQuery = `INSERT INTO tb_user_login_info (first_name, last_name, email, password) VALUES ('${req.body.first_name}', '${req.body.last_name}', '${req.body.email}', '${req.body.password}')`
         db.query(sqlQuery, (err, rows) => {
             if (err) {
                 console.log(err);
