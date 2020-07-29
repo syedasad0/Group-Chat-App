@@ -60,10 +60,10 @@ app.get('/signup', function (req, res) {
 app.post('/signup', function (req, res) {
     console.log("Received request data - ", req.body);
     const schema2 = Joi.object().keys({
-        firstName: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
-        lastName: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
-        id: Joi.string().trim().email().required(),
-        password: Joi.string().min(5).max(12).required()
+        first_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
+        last_name: Joi.string().regex(/^[a-z ,.'-]+$/i).required(),
+        id: Joi.string().email().required(),
+        password: Joi.string().min(3).max(30).required()
     });
     Joi.validate(req.body, schema2, (err, x) => {
         console.log(err);
