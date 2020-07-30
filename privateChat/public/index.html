@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="socket.io/socket.io.js"></script>
+  <script src="./js/main.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>NEW_CHAT_ROOM_API</title>
+</head>
+
+<body>
+  <div class="row mainContainer">
+
+    <div class="col s12 m4 l3 grey lighten-5">
+      <div class="container leftContainer">
+        <h5>
+          <center>sideboard</center>
+        </h5>
+        <input type="button" class="btn-small grey blue-text text-darken-3" value="refresh"
+          onclick="checkOnlineUsers()">
+        <ul class="card grey lighten-4" id="sideBoard">
+          <span class="grey-text text-lighten-1">no users yet </span>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col s12 m8 l9 grey ">
+
+      <div id="rightContainer1">
+        <div class="container">
+          <div class="card-panel">
+            <center>enter username</center>
+            <div class="input-field">
+              <input class="center-align" type="text" id="usernameInput">
+            </div>
+            <center>
+              <input class="btn grey" type="button" value="GO!" onClick="onUsernameInput()">
+            </center>
+          </div>
+        </div>
+      </div>
+
+      <div class="container" id="rightContainer2">
+        <div class="card-panel">
+          <h5>
+            <center>messageboard</center>
+          </h5>
+          To <span id="selectedUser">-----</span>
+          <ul class="card-content grey" id="messageBoard">
+            <li id="message2">Welcome</li>
+          </ul>
+          <div class="card-action">
+            <div class="row" id="messageBox">
+              <div class="input-field col s10 m11">
+                <input type="text" id="messageInput">
+              </div>
+              <div class="input-field col s2 m1">
+                <input class=" btn grey" type="button" value="send" onclick="onMessageSend()">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+
+</html>
