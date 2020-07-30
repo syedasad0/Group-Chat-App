@@ -7,11 +7,17 @@
   <link rel="stylesheet" type="text/css" href="/public/chatCSS/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
   <title>Apptunix Chat App</title>
+  <style>
+    .privateLink {
+      color: white;
+      background-color: black;
+    }
+  </style>
 </head>
 
 <body>
   <header>
-    <h1>Apptuix Chat App</h1>
+    <h1>Apptunix Chat App</h1>
   </header>
   <section>
     <div id="change_username">
@@ -25,6 +31,8 @@
   <section id="input_zone">
     <input id="message" class="vertical-align" type="text" />
     <button id="send_message" class="vertical-align" type="button">Send</button>
+    <br><a href ="http://localhost:3003" class="vertical-align privateLink" >Switch to Private Chat</a>
+
   </section>
   <script src="http://code.jquery.com/jquery-latest.min.js"></script>
   <script src="/public/chatCSS/chat.js"></script>
